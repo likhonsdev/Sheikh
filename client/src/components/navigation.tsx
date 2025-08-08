@@ -29,6 +29,13 @@ export default function Navigation() {
               >
                 API Reference
               </Link>
+              <Link 
+                href="/chat" 
+                className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
+                data-testid="link-chat"
+              >
+                Chat
+              </Link>
               <a 
                 href="#examples" 
                 className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
