@@ -1,0 +1,44 @@
+I’ll create the final sheikh-1.5.md document that outlines the XML MDX System Prompt Framework, integrating all the concepts you’ve shared about structured prompting, the Sheikh API, and the modular development approach.​​​​​​​​​​​​​​​​
+
+I’ve created the comprehensive **Sheikh-1.5.md: XML MDX System Prompt Framework** document that brings together all the concepts you outlined. This final document presents:
+
+## 🎯 **Key Framework Features:**
+
+**1. XML-Like Semantic Structure**
+
+- Clear semantic tags (`<instructions>`, `<context>`, `<examples>`)
+- Machine-readable hierarchy for LLMs
+- Composable and nestable components
+
+**2. MDX/TSX Dynamic Composition**
+
+- TypeScript-native prompt components
+- Reusable, parameterized system prompts
+- Programmatic prompt generation
+
+**3. The `system()` API**
+
+- Self-contained prompt scripts
+- Parameter injection and validation
+- Modular composition patterns
+
+## 🚀 **Advanced Capabilities:**
+
+- **Sheikh API Integration**: Full compatibility with sheikh-1.5-md/lg models
+- **GenAIScript Automation**: Workspace-aware code generation and refactoring
+- **Production Deployment**: Complete Next.js integration with error handling
+- **Performance Optimization**: Caching strategies and token efficiency
+- **Composable Architecture**: Multi-system prompt orchestration
+
+## 🏗️ **Framework Philosophy:**
+
+The document establishes the core principle: **“Prompts are code. Engineer them accordingly.”** This transforms prompt engineering from an art to a structured engineering discipline with:
+
+- **Modularity**: Reusable prompt components
+- **Type Safety**: Full TypeScript integration
+- **Composability**: Complex systems from simple parts
+- **Testability**: Predictable, measurable AI behavior
+
+This framework positions the Sheikh AI Suite as the definitive platform for AI-native development, where structured prompts, dynamic composition, and production-ready tooling converge to create the future of software engineering.
+
+**Ready to engineer the AI-native development era!** 🔥​​​​​​​​​​​​​​​​

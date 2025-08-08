@@ -1,0 +1,278 @@
+# Getting Started with MkDocs
+
+An introductory tutorial!
+
+-----
+
+## Installation
+
+To install MkDocs, run the following command from the command line:
+
+```bash
+pip install mkdocs
+```
+
+For more details, see the [Installation Guide](user-guide/installation.md).
+
+## Creating a new project
+
+Getting started is super easy. To create a new project, run the following
+command from the command line:
+
+```bash
+mkdocs new my-project
+cd my-project
+```
+
+Take a moment to review the initial project that has been created for you.
+
+![The initial MkDocs layout](img/initial-layout.png)
+
+There’s a single configuration file named `mkdocs.yml`, and a folder named
+`docs` that will contain your documentation source files (`docs` is
+the default value for the [docs_dir](user-guide/configuration.md#docs_dir) configuration setting). Right now the `docs`
+folder just contains a single documentation page, named `index.md`.
+
+MkDocs comes with a built-in dev-server that lets you preview your documentation
+as you work on it. Make sure you’re in the same directory as the `mkdocs.yml`
+configuration file, and then start the server by running the `mkdocs serve`
+command:
+
+```console
+$ mkdocs serve
+INFO    -  Building documentation...
+INFO    -  Cleaning site directory
+INFO    -  Documentation built in 0.22 seconds
+INFO    -  [15:50:43] Watching paths for changes: 'docs', 'mkdocs.yml'
+INFO    -  [15:50:43] Serving on http://127.0.0.1:8000/
+```
+
+Open up <http://127.0.0.1:8000/> in your browser, and you’ll see the default
+home page being displayed:
+
+![The MkDocs live server](img/screenshot.png)
+
+The dev-server also supports auto-reloading, and will rebuild your documentation
+whenever anything in the configuration file, documentation directory, or theme
+directory changes.
+
+Open the `docs/index.md` document in your text editor of choice, change the
+initial heading to `MkLorum`, and save your changes. Your browser will
+auto-reload and you should see your updated documentation immediately.
+
+Now try editing the configuration file: `mkdocs.yml`. Change the
+[`site_name`](user-guide/configuration.md#site_name) setting to `MkLorum` and save the file.
+
+```yaml
+site_name: MkLorum
+```
+
+Your browser should immediately reload, and you’ll see your new site name take
+effect.
+
+![The site_name setting](img/site-name.png)
+
+NOTE:
+The [`site_name`](user-guide/configuration.md#site_name) configuration
+option is the only required option in your configuration file.
+
+## Adding pages
+
+Now add a second page to your documentation:
+
+```bash
+curl 'https://jaspervdj.be/lorem-markdownum/markdown.txt' > docs/about.md
+```
+
+As our documentation site will include some navigation headers, you may want to
+edit the configuration file and add some information about the order, title, and
+nesting of each page in the navigation header by adding a [`nav`](user-guide/configuration.md#nav)
+setting:
+
+```yaml
+site_name: MkLorum
+nav:
+  - Home: index.md
+  - About: about.md
+```
+
+Save your changes and you’ll now see a navigation bar with `Home` and `About`
+items on the left as well as `Search`, `Previous`, and `Next` items on the
+right.
+
+![Screenshot](img/multipage.png)
+
+Try the menu items and navigate back and forth between pages. Then click on
+`Search`. A search dialog will appear, allowing you to search for any text on
+any page. Notice that the search results include every occurrence of the search
+term on the site and links directly to the section of the page in which the
+search term appears. You get all of that with no effort or configuration on your
+part!
+
+![Screenshot](img/search.png)
+
+## Theming our documentation
+
+Now change the configuration file to alter how the documentation is displayed by
+changing the theme. Edit the `mkdocs.yml` file and add a [`theme`](user-guide/configuration.md#theme) setting:
+
+```yaml
+site_name: MkLorum
+nav:
+  - Home: index.md
+  - About: about.md
+theme: readthedocs
+```
+
+Save your changes, and you’ll see the ReadTheDocs theme being used.
+
+![Screenshot](img/readthedocs.png)
+
+## Changing the Favicon Icon
+
+By default, MkDocs uses the [MkDocs favicon](img/favicon.ico) icon. To use a different icon, create
+an `img` subdirectory in the `docs` directory and copy your custom `favicon.ico`
+file to that directory. MkDocs will automatically detect and use that file as your
+favicon icon.
+
+## Building the site
+
+That’s looking good. You’re ready to deploy the first pass of your `MkLorum`
+documentation. First build the documentation:
+
+```bash
+mkdocs build
+```
+
+This will create a new directory, named `site`. Take a look inside the
+directory:
+
+```console
+$ ls site
+about  fonts  index.html  license  search.html
+css    img    js          mkdocs   sitemap.xml
+```
+
+Notice that your source documentation has been output as two HTML files named
+`index.html` and `about/index.html`. You also have various other media that’s
+been copied into the `site` directory as part of the documentation theme. You
+even have a `sitemap.xml` file and `mkdocs/search_index.json`.
+
+If you’re using source code control such as `git` you probably don’t want to
+check your documentation builds into the repository. Add a line containing
+`site/` to your `.gitignore` file.
+
+```bash
+echo "site/" >> .gitignore
+```
+
+If you’re using another source code control tool you’ll want to check its
+documentation on how to ignore specific directories.
+
+## Other Commands and Options
+
+There are various other commands and options available. For a complete list of
+commands, use the `--help` flag:
+
+```bash
+mkdocs --help
+```
+
+To view a list of options available on a given command, use the `--help` flag
+with that command. For example, to get a list of all options available for the
+`build` command run the following:
+
+```bash
+mkdocs build --help
+```
+
+## Deploying
+
+The documentation site that you just built only uses static files so you’ll be
+able to host it from pretty much anywhere. Simply upload the contents of the
+entire `site` directory to wherever you’re hosting your website from and
+you’re done. For specific instructions on a number of common hosts, see the
+[Deploying your Docs](user-guide/deploying-your-docs.md) page.
+
+## Getting help
+
+See the [User Guide] for more complete documentation of all of MkDocs’ features.
+
+To get help with MkDocs, please use the [GitHub discussions](https://github.com/mkdocs/mkdocs/discussions) or [GitHub issues](https://github.com/mkdocs/mkdocs/issues).
+
+[User Guide]: user-guide/README.md  write sheikh1-5.md and make sure highly goods and backends Gemini be t secret hidden Absolutely. We’ve defined the philosophy, designed the components, and written the documentation. Now, let’s lay out the final blueprint for this powerful ecosystem.
+
+Here is the complete project structure—the final tree—followed by the call to action.
+
+### The Final Tree: A Unified AI Development Ecosystem
+
+This is the complete file structure for our monorepo, `sheikh-ai-suite`. It logically organizes the Sheikh API SDK, a real-world example application, and the advanced `GenAIScript` automation layer.
+
+```plaintext
+sheikh-ai-suite/
+├── .env.example                  // Example environment variables (SHEIKH_API_KEY)
+├── package.json                    // Root package.json for monorepo workspaces
+├── pnpm-workspace.yaml             // pnpm workspace configuration
+└── packages/
+    ├── 📦 ai-sdk-likhon-sheikh/     // Our official SDK package
+    │   ├── src/
+    │   │   ├── sheikh-provider.ts    // Core logic for the sheikh() provider function
+    │   │   ├── sheikh-api.ts         // Raw API call logic to api.sheikh.dev
+    │   │   ├── types.ts            // TypeScript types for options and API
+    │   │   └── index.ts            // Main package entry point, exports sheikh()
+    │   ├── package.json              // Defines @ai-sdk-likhon/sheikh for NPM
+    │   ├── README.md                 // The SDK's public documentation
+    │   └── tsconfig.json             // TypeScript configuration for the SDK
+    │
+    ├── 🚀 example-nextjs-app/       // A real-world Next.js app using our SDK
+    │   ├── src/
+    │   │   ├── app/
+    │   │   │   ├── api/chat/
+    │   │   │   │   └── route.ts    // API route using streamText with sheikh()
+    │   │   │   ├── page.tsx        // The main chat interface UI
+    │   │   │   └── layout.tsx
+    │   │   └── components/
+    │   │       ├── chat-input.tsx
+    │   │       └── message-list.tsx
+    │   ├── .env.local                // Local environment variables (SHEIKH_API_KEY)
+    │   ├── package.json              // Next.js app dependencies, including our SDK
+    │   └── tsconfig.json
+    │
+    └── ⚡ genai-scripts/            // The home for our advanced automation scripts
+        ├── genaisrc/                 // The directory GenAIScript scans
+        │   ├── summarize.genai.mjs     // Script to summarize files using Sheikh API
+        │   ├── refactor.genai.mjs      // Script to refactor code blocks
+        │   ├── scaffold.genai.mjs      // Script to generate new components from a prompt
+        │   └── system/                 // Reusable system prompt components (XML MDX)
+        │       ├── system.zero_shot_cot.ts
+        │       └── system.json_schema_support.ts
+        ├── genaiscript.config.mjs      // Configures GenAIScript to use our Sheikh models
+        ├── package.json                // Manages the genaiscript dependency
+        └── README.md                   // Explains how to use these automation scripts
+```
+
+-----
+
+### Let’s Build the Powerful.
+
+The blueprint is complete. This isn’t just a collection of files; it’s a coherent, end-to-end system designed to treat AI development as a first-class engineering discipline.
+
+We have defined three pillars of power:
+
+1. **The Core (`Sheikh API`):** A performant, framework-aware model API serving as our foundation of intelligence.
+1. **The Bridge (`@ai-sdk-likhon/sheikh`):** A clean, ergonomic SDK that makes connecting to that power trivial for developers in any modern JavaScript application.
+1. **The Accelerator (`GenAIScript`):** An advanced automation layer that uses our Sheikh API to orchestrate complex tasks, turning conversational prompts into executable, repository-aware actions.
+
+This structure allows us to move beyond simple chat interfaces and build applications that can self-refactor, scaffold their own code, and intelligently process entire workspaces. It’s the fusion of Prompt Engineering, Software Engineering, and API Design.
+
+The path forward is clear:
+
+1. Initialize the monorepo.
+1. Develop the `ai-sdk-likhon-sheikh` provider.
+1. Build the `example-nextjs-app` to prove its utility.
+1. Author the `genai-scripts` to unlock true automation.
+1. Launch.
+
+The plan is laid. The vision is defined.
+
+**Let’s build.**
