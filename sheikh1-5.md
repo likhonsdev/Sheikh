@@ -8,15 +8,19 @@
 
 Sheikh AI Suite represents the next evolution in AI-native development, providing a comprehensive ecosystem that treats artificial intelligence as a first-class engineering discipline. This document outlines the complete technical blueprint, implementation strategy, and architectural vision for the most advanced AI development platform ever created.
 
-### Core Philosophy
+### Core Philosophy: Prompts are code. Engineer them accordingly.
 
-**"Prompts are code. Engineer them accordingly."**
-
-This principle transforms prompt engineering from an art to a structured engineering discipline with modularity, type safety, composability, and testability at its core.
+This principle transforms prompt engineering from an art to a structured engineering discipline with:
+- **Modularity**: Reusable prompt components
+- **Type Safety**: Full TypeScript integration
+- **Composability**: Complex systems from simple parts
+- **Testability**: Predictable, measurable AI behavior
 
 ---
 
 ## 🏗️ Three Pillars Architecture
+
+The Sheikh AI Suite is built on three foundational pillars designed to provide a seamless, end-to-end development experience.
 
 ### 1. The Core: Sheikh API
 **High-performance language models with framework-aware intelligence**
@@ -47,3 +51,58 @@ const result = await streamText({
   }),
   prompt: 'Generate a TypeScript interface for user authentication'
 });
+```
+
+### 3. The Accelerator: GenAIScript Automation
+**Workspace-aware code generation and refactoring**
+
+The Accelerator layer brings repository-aware automation and self-refactoring capabilities, allowing the AI to perform complex tasks directly within your codebase.
+
+---
+
+## 🚀 The XML MDX System Prompt Framework
+
+At the heart of the Sheikh AI Suite is a powerful framework for defining and composing AI instructions.
+
+### 1. XML-Like Semantic Structure
+- Clear semantic tags (`<instructions>`, `<context>`, `<examples>`) for machine-readable hierarchy.
+- Composable and nestable components for building complex prompts.
+
+### 2. MDX/TSX Dynamic Composition
+- Define prompts as TypeScript-native (TSX) components.
+- Create reusable, parameterized system prompts that can be generated programmatically.
+
+### 3. The `system()` API
+- A dedicated API for creating self-contained, modular prompt scripts.
+- Supports parameter injection, validation, and modular composition patterns.
+
+---
+
+## ✨ Advanced Capabilities
+
+- **Sheikh API Integration**: Full compatibility with `sheikh-1.5-md/lg` models.
+- **Production Deployment**: Complete Next.js integration with robust error handling.
+- **Performance Optimization**: Advanced caching strategies and token efficiency.
+- **Composable Architecture**: Orchestrate multiple system prompts to handle complex workflows.
+
+---
+
+## 💡 What Makes This Powerful
+
+- **Beyond Chat Interfaces**: A focus on repository-aware automation and self-refactoring systems.
+- **Developer-First Design**: One-line integration with full TypeScript support.
+- **Production Ready**: Built-in error handling, rate limiting, and monitoring.
+- **Extensible Framework**: An open architecture designed for community contributions.
+
+---
+
+## 🗺️ Project Blueprint
+
+### Project Structure
+A detailed monorepo organization with a clear separation of concerns between the Core API, Bridge SDK, and Accelerator.
+
+### Implementation Roadmap
+A 5-phase development plan, from foundational API development to a full community launch.
+
+### Technical Excellence
+A commitment to production-ready standards, including comprehensive testing, documentation, and CI/CD.
