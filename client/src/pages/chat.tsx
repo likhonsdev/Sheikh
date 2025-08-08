@@ -3,9 +3,15 @@ import Navigation from '@/components/navigation';
 import Footer from '@/components/footer';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { MessageCircle, Sparkles, Send } from 'lucide-react';
+import { MessageCircle, Sparkles, Send, Lock, Code, Brain, Zap } from 'lucide-react';
+import { useUser, SignInButton } from '@clerk/clerk-react';
+import { Conversation, ConversationContent } from '@/components/ai/conversation';
+import { Message, MessageContent } from '@/components/ai/message';
+import { Response } from '@/components/ai/response';
+import { CodeBlock } from '@/components/ai/code-block';
 
 export default function Chat() {
+  const { isSignedIn, user } = useUser();
   const [messages, setMessages] = useState<Array<{ role: 'user' | 'assistant'; content: string }>>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -60,6 +66,41 @@ export default function Chat() {
     }
   };
 
+  // Show authentication required message if not signed in
+  if (!isSignedIn) {
+    return (
+      <div className="min-h-screen bg-white dark:bg-gray-900">
+        <Navigation />
+        
+        <main className="pt-20">
+          <div className="max-w-4xl mx-auto px-4 py-8">
+            <div className="text-center">
+              <div className="flex items-center justify-center gap-3 mb-4">
+                <div className="p-3 bg-gradient-to-br from-sheikh-blue to-sheikh-purple rounded-xl">
+                  <Lock className="w-8 h-8 text-white" />
+                </div>
+                <h1 className="text-4xl font-bold text-gray-900 dark:text-white">
+                  Authentication Required
+                </h1>
+              </div>
+              <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto mb-8">
+                Please sign in to access the Sheikh AI Chat interface and start conversations with our intelligent assistant.
+              </p>
+              <SignInButton mode="modal">
+                <Button className="bg-gradient-to-r from-sheikh-blue to-sheikh-purple hover:from-blue-700 hover:to-purple-700 text-white px-8 py-3 text-lg">
+                  <Lock className="w-5 h-5 mr-2" />
+                  Sign In to Chat
+                </Button>
+              </SignInButton>
+            </div>
+          </div>
+        </main>
+        
+        <Footer />
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900">
       <Navigation />
@@ -73,7 +114,7 @@ export default function Chat() {
                 <MessageCircle className="w-8 h-8 text-white" />
               </div>
               <h1 className="text-4xl font-bold text-gray-900 dark:text-white">
-                Sheikh AI Chat
+                Welcome, {user?.firstName || 'User'}!
               </h1>
             </div>
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
@@ -98,7 +139,7 @@ export default function Chat() {
             </div>
 
             {/* Messages Area */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-4">
+            <ConversationContent className="flex-1 h-[400px]">
               {messages.length === 0 ? (
                 <div className="text-center py-12">
                   <div className="w-16 h-16 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -110,65 +151,98 @@ export default function Chat() {
                   <p className="text-gray-600 dark:text-gray-300 mb-4">
                     Try asking about code generation, best practices, or any technical questions.
                   </p>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3 max-w-md mx-auto">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-3 max-w-2xl mx-auto">
                     <Button
                       variant="outline"
-                      className="h-auto p-4 text-left"
+                      className="h-auto p-4 text-left hover:bg-blue-50 dark:hover:bg-blue-900/20"
                       onClick={() => setInput("Generate a TypeScript interface for user authentication")}
                       data-testid="button-example-interface"
                     >
-                      <div>
-                        <div className="font-medium">Code Generation</div>
-                        <div className="text-sm text-gray-500">Generate TypeScript interfaces</div>
+                      <div className="flex items-start gap-3">
+                        <Code className="w-5 h-5 text-sheikh-blue mt-1 flex-shrink-0" />
+                        <div>
+                          <div className="font-medium">Code Generation</div>
+                          <div className="text-sm text-gray-500">Generate TypeScript interfaces</div>
+                        </div>
                       </div>
                     </Button>
                     <Button
                       variant="outline"
-                      className="h-auto p-4 text-left"
+                      className="h-auto p-4 text-left hover:bg-purple-50 dark:hover:bg-purple-900/20"
                       onClick={() => setInput("Explain React best practices for state management")}
                       data-testid="button-example-react"
                     >
-                      <div>
-                        <div className="font-medium">Best Practices</div>
-                        <div className="text-sm text-gray-500">Learn React patterns</div>
+                      <div className="flex items-start gap-3">
+                        <Brain className="w-5 h-5 text-sheikh-purple mt-1 flex-shrink-0" />
+                        <div>
+                          <div className="font-medium">Best Practices</div>
+                          <div className="text-sm text-gray-500">Learn React patterns</div>
+                        </div>
+                      </div>
+                    </Button>
+                    <Button
+                      variant="outline"
+                      className="h-auto p-4 text-left hover:bg-green-50 dark:hover:bg-green-900/20"
+                      onClick={() => setInput("How do I optimize my application performance?")}
+                      data-testid="button-example-performance"
+                    >
+                      <div className="flex items-start gap-3">
+                        <Zap className="w-5 h-5 text-green-600 mt-1 flex-shrink-0" />
+                        <div>
+                          <div className="font-medium">Performance</div>
+                          <div className="text-sm text-gray-500">Optimization tips</div>
+                        </div>
                       </div>
                     </Button>
                   </div>
                 </div>
               ) : (
-                messages.map((message, index) => (
-                  <div
-                    key={index}
-                    className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
-                    data-testid={`message-${message.role}-${index}`}
-                  >
-                    <div
-                      className={`max-w-[80%] p-4 rounded-lg ${
-                        message.role === 'user'
-                          ? 'bg-gradient-to-br from-sheikh-blue to-sheikh-purple text-white'
-                          : 'bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white'
-                      }`}
+                <Conversation>
+                  {messages.map((message, index) => (
+                    <Message 
+                      key={index}
+                      from={message.role} 
+                      name={message.role === 'user' ? user?.firstName || 'You' : 'Sheikh AI'}
                     >
-                      <pre className="whitespace-pre-wrap font-sans">{message.content}</pre>
-                    </div>
-                  </div>
-                ))
+                      <MessageContent>
+                        {message.role === 'assistant' && message.content.includes('```') ? (
+                          <div className="space-y-3">
+                            {message.content.split('```').map((part, partIndex) => {
+                              if (partIndex % 2 === 0) {
+                                return part.trim() ? (
+                                  <Response key={partIndex}>{part.trim()}</Response>
+                                ) : null;
+                              } else {
+                                const lines = part.split('\n');
+                                const language = lines[0].trim();
+                                const code = lines.slice(1).join('\n');
+                                return (
+                                  <CodeBlock 
+                                    key={partIndex}
+                                    language={language} 
+                                  >
+                                    {code}
+                                  </CodeBlock>
+                                );
+                              }
+                            })}
+                          </div>
+                        ) : (
+                          <Response>{message.content}</Response>
+                        )}
+                      </MessageContent>
+                    </Message>
+                  ))}
+                  {isLoading && (
+                    <Message from="assistant" name="Sheikh AI">
+                      <MessageContent>
+                        <Response isLoading />
+                      </MessageContent>
+                    </Message>
+                  )}
+                </Conversation>
               )}
-              {isLoading && (
-                <div className="flex justify-start">
-                  <div className="max-w-[80%] p-4 rounded-lg bg-gray-100 dark:bg-gray-700">
-                    <div className="flex items-center gap-2">
-                      <div className="flex gap-1">
-                        <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
-                        <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                        <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
-                      </div>
-                      <span className="text-sm text-gray-500 dark:text-gray-400">Sheikh AI is thinking...</span>
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
+            </ConversationContent>
 
             {/* Input Area */}
             <div className="p-4 border-t border-gray-200 dark:border-gray-700">

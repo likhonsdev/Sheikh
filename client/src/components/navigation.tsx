@@ -1,8 +1,12 @@
 import { Button } from "@/components/ui/button";
-import { Code, Github } from "lucide-react";
+import { Code, Github, User, LogOut } from "lucide-react";
 import { Link } from "wouter";
+import { useUser, useClerk, SignInButton, UserButton } from "@clerk/clerk-react";
 
 export default function Navigation() {
+  const { isSignedIn, user } = useUser();
+  const { signOut } = useClerk();
+
   return (
     <nav className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -10,7 +14,16 @@ export default function Navigation() {
           <div className="flex items-center space-x-8">
             <Link href="/" className="flex items-center space-x-3" data-testid="link-home">
               <div className="w-8 h-8 bg-gradient-to-r from-sheikh-blue to-sheikh-purple rounded-lg flex items-center justify-center">
-                <Code className="text-white h-4 w-4" />
+                <img 
+                  src="@assets/IMG_4164_1754657267050.png" 
+                  alt="Sheikh AI"
+                  className="w-6 h-6 rounded" 
+                  onError={(e) => {
+                    e.currentTarget.style.display = 'none';
+                    e.currentTarget.nextElementSibling?.classList.remove('hidden');
+                  }}
+                />
+                <Code className="text-white h-4 w-4 hidden" />
               </div>
               <span className="text-xl font-bold text-gray-900 dark:text-white">Sheikh AI Suite</span>
             </Link>
@@ -60,12 +73,30 @@ export default function Navigation() {
             >
               <Github className="h-5 w-5" />
             </a>
-            <Button 
-              className="bg-sheikh-blue hover:bg-blue-600 text-white"
-              data-testid="button-get-started"
-            >
-              Get Started
-            </Button>
+            {isSignedIn ? (
+              <div className="flex items-center space-x-3">
+                <span className="text-sm text-gray-600 dark:text-gray-300">
+                  Welcome, {user?.firstName || user?.username}!
+                </span>
+                <UserButton 
+                  appearance={{
+                    elements: {
+                      avatarBox: "w-8 h-8"
+                    }
+                  }}
+                />
+              </div>
+            ) : (
+              <SignInButton mode="modal">
+                <Button 
+                  className="bg-sheikh-blue hover:bg-blue-600 text-white"
+                  data-testid="button-sign-in"
+                >
+                  <User className="w-4 h-4 mr-2" />
+                  Sign In
+                </Button>
+              </SignInButton>
+            )}
           </div>
         </div>
       </div>
